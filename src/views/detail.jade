@@ -3,7 +3,8 @@ block content
     h2= elem.title
     div.images
         each img in images
-            img(src="../assets/" + elem.folder + "/" + img)
+            -if(img.match(/(jpg)|(png)$/))
+                img(src="../assets/" + elem.folder + "/" + img)
     nav.nav
         ul.items  
             - if(elem.rank !== totalCount)

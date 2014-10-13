@@ -1,35 +1,14 @@
+mockStart = 108
+
+data = []
+currentDate = new Date(1413219714488)
+for mockIndex in [mockStart..1]
+    title = "#{currentDate.getFullYear()}年#{currentDate.getMonth()}月#{currentDate.getDate()}日 更新"
+    currentDate.setDate(currentDate.getDate() - 1)
+    data.push {"folder": "p-#{mockIndex}", title}
+
 data = [
-    {folder: "7", title: "2014年10月7日 更新"}
-    {folder: "6", title: "2014年10月6日 更新"}
-    {folder: "5", title: "2014年10月5日 更新"}
-    {folder: "4", title: "2014年10月4日 更新"}
-    {folder: "3", title: "2014年10月3日 更新"}
-    {folder: "2", title: "2014年10月2日 更新"}
-    {folder: "1", title: "2014年10月1日 更新"}
-
-    {folder: "7", title: "2014年10月7日 更新"}
-    {folder: "6", title: "2014年10月6日 更新"}
-    {folder: "5", title: "2014年10月5日 更新"}
-    {folder: "4", title: "2014年10月4日 更新"}
-    {folder: "3", title: "2014年10月3日 更新"}
-    {folder: "2", title: "2014年10月2日 更新"}
-    {folder: "1", title: "2014年10月1日 更新"}
-
-    {folder: "7", title: "2014年10月7日 更新"}
-    {folder: "6", title: "2014年10月6日 更新"}
-    {folder: "5", title: "2014年10月5日 更新"}
-    {folder: "4", title: "2014年10月4日 更新"}
-    {folder: "3", title: "2014年10月3日 更新"}
-    {folder: "2", title: "2014年10月2日 更新"}
-    {folder: "1", title: "2014年10月1日 更新"}
-    
-    {folder: "7", title: "2014年10月7日 更新"}
-    {folder: "6", title: "2014年10月6日 更新"}
-    {folder: "5", title: "2014年10月5日 更新"}
-    {folder: "4", title: "2014年10月4日 更新"}
-    {folder: "3", title: "2014年10月3日 更新"}
-    {folder: "2", title: "2014年10月2日 更新"}
-    {folder: "1", title: "2014年10月1日 更新"}
-]
+    # New Date Here!!
+].concat data
 
 module.exports = data
