@@ -251,3 +251,27 @@ footer {
     color:#444;
   }
 }
+
+nav ul.items li {
+  list-style: none;
+  float: left;
+  margin-left: 3px;
+  margin-top: 3px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+nav ul.items li:hover, 
+nav ul.items li.active {
+  cursor: pointer;
+  background-color: #f3f3f3;
+}
+nav ul.items li:hover a,
+nav ul.items li.active a {
+  color: #333;
+}
+
