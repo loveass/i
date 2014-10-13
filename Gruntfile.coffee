@@ -2,6 +2,9 @@ module.exports = (grunt)->
 
   coffeeify = require "coffeeify"
   stringify = require "stringify"
+  fs = require "fs"
+  compileJade = require "./compile-jade.coffee"
+  data = require "./data.coffee"
 
   grunt.initConfig
     connect:
@@ -11,7 +14,7 @@ module.exports = (grunt)->
           base: ["."]
 
     clean: 
-      bin: ["bin", "pages", "index.html"]
+      bin: ["bin", "pages/*.html", "lists/*.html", "index.html"]
 
     copy:
       index:
@@ -49,36 +52,27 @@ module.exports = (grunt)->
         options:
           livereload: true
         files: [
+          "./*coffee",
           "src/**/*.coffee", 
           "src/**/*.less", 
           "src/**/*.html", 
-          "index.html", 
           "test/**/*.coffee", 
           "test/**/*.html", 
           "src/**/*.jade",
           "src/**/*.json"
         ]
-        tasks: ["browserify", "less", "jade", "copy:index"]
+        tasks: ["browserify", "less", "jade"]
 
     jade:
       dev:
-        options:
-          data: (dest, src)->
-            src = src[0]
-            view = (src.match /\/[\w\-]+\.jade$/g)[0].replace /(\/)|(\.jade)/g, ""
-            try
-              console.warn "./src/mocks/#{view}.coffee is not found, use {}. But no worries." 
-              data = require "./src/mocks/#{view}.coffee"
-            catch e
-              data = {}
-            data
         files: [{
             expand: true
             cwd: "src/views/"
-            src: ["*.jade"]
+            src: ["payment.jade"]
             dest: "pages/"
             ext: ".html"
         }]
+
 
   grunt.loadNpmTasks "grunt-contrib-connect"
   grunt.loadNpmTasks "grunt-contrib-clean"
@@ -89,27 +83,14 @@ module.exports = (grunt)->
   grunt.loadNpmTasks "grunt-contrib-copy"
   grunt.loadNpmTasks "grunt-contrib-jade"
 
-  grunt.registerTask "default", ->
+  grunt.registerTask "default", ["build", "jade", "browserify", "less", "connect", "watch"]
+
+  grunt.registerTask "build", ["clean:bin"], ->
     compileJade ->
-      grunt.task.run [
-        "clean:bin"
-        "browserify"
-        "less"
-        "jade"
-        "copy:index"
-        "connect"
-        "watch"
-      ]
-
-  grunt.registerTask "build", ->
-    grunt.task.run [
-      "clean:bin"
-      "browserify"
-      "less"
-      "jade"
-      "copy:index"
-    ]
-
-  compileJade = (callback)->
-    console.log require("./data.coffee")
-    callback()
+        grunt.task.run [
+          "jade"
+          "browserify"
+          "less"
+        ], ->
+        html = fs.readFileSync "lists/1.html"
+        fs.writeFileSync "./index.html", html

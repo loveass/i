@@ -1,0 +1,49 @@
+extends parts/layout
+block content
+    ul.list
+        each item in items
+            li
+                a(href="/pages/" + item.rank + ".html", target="_blank")= item.title
+    nav.nav
+        mixin nav(page)
+            - if(page == currentPage) {
+                li.nav.active: a(href=prefix + page + ".html")= page
+            - } else {
+                li.nav: a(href=prefix + page + ".html")= page
+            - }
+
+        ul.items
+            - if (currentPage !== 1) {
+                li.nav.text: a(href=prefix + (currentPage - 1) + ".html") 上一页
+            - }
+
+            +nav(1)
+
+            - var start = currentPage - 4 > 1 ? currentPage - 4: 2;
+            - var end = currentPage + 5 < totalCount ? currentPage + 5: totalCount - 1
+            - if (end - start + 1 < 10) {
+            -    var dist = 10 - (end - start + 1)
+            -    if (start - dist > 1) start -= dist
+            -    else if (end + dist < totalCount) end += dist
+            - }
+
+            - if (start > 2) {
+                li.nav ...
+            - }
+
+            - while(start <= end) {
+                +nav(start)
+                - start++
+            - }
+
+            - if (end < totalCount - 1) {
+                li.nav ...
+            - }
+
+            - if (totalCount !== 1) {
+                +nav(totalCount)
+            - }
+
+            - if (currentPage !== totalCount) {
+                li.nav.text: a(href=prefix + (currentPage + 1) + ".html") 下一页
+            - }

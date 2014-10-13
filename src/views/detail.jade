@@ -1,18 +1,14 @@
 extends parts/layout
 block content
-    <h2>2014-10-13更新</h2>
-    <div class="images">
-    <img src="../assets/2014-10-13/1.jpg">
-    <img src="../assets/2014-10-13/2.jpg">
-    <img src="../assets/2014-10-13/3.jpg">
-    <img src="../assets/2014-10-13/4.jpg">
-    <img src="../assets/2014-10-13/5.jpg">
-    <img src="../assets/2014-10-13/6.jpg">
-    <img src="../assets/2014-10-13/7.jpg">
-    <img src="../assets/2014-10-13/8.jpg">
-    <img src="../assets/2014-10-13/9.jpg">
-    <img src="../assets/2014-10-13/11.jpg">
-    <img src="../assets/2014-10-13/10.jpg">
-    <img src="../assets/2014-10-13/12.jpg">
-    <img src="../assets/2014-10-13/13.jpg">
-    </div>
+    h2= elem.title
+    div.images
+        each img in images
+            img(src="../assets/" + elem.folder + "/" + img)
+    nav.nav
+        ul.items  
+            - if(elem.rank !== totalCount)
+                li.nav.text 
+                    a(href="/pages/" + (elem.rank + 1) + ".html") 上一页
+            - if(elem.rank !== 1)
+                li.nav.text 
+                    a(href="/pages/" + (elem.rank - 1) + ".html") 下一页
