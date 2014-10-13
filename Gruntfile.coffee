@@ -90,15 +90,16 @@ module.exports = (grunt)->
   grunt.loadNpmTasks "grunt-contrib-jade"
 
   grunt.registerTask "default", ->
-    grunt.task.run [
-      "clean:bin"
-      "browserify"
-      "less"
-      "jade"
-      "copy:index"
-      "connect"
-      "watch"
-    ]
+    compileJade ->
+      grunt.task.run [
+        "clean:bin"
+        "browserify"
+        "less"
+        "jade"
+        "copy:index"
+        "connect"
+        "watch"
+      ]
 
   grunt.registerTask "build", ->
     grunt.task.run [
@@ -108,3 +109,7 @@ module.exports = (grunt)->
       "jade"
       "copy:index"
     ]
+
+  compileJade = (callback)->
+    console.log require("./data.coffee")
+    callback()
